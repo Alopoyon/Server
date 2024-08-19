@@ -7,7 +7,9 @@ class ProjectManagement:
 
     def _return_directory_names(self):
         __project_directories = []
+        # print(f"{self._directory_contents=}")
         for directory in self._directory_contents.iterdir():
+            # print(f"{directory=}")
             if directory.is_dir():
                 __project_directories.append(directory.name)
 
@@ -32,3 +34,8 @@ class ProjectManagement:
         with self._directory_contents.open() as f:
             _dat = f.read()
         return _dat
+        
+    def __str__(self):
+        if self._directory_contents.exists():
+            return str(self._directory_contents.resolve())
+        return "Invalid"
