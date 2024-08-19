@@ -27,3 +27,8 @@ class ProjectManagement:
             "files": self._return_file_names()
         }
         return _directory_contents
+    
+    def read_file_contents(self):
+        with self._directory_contents.open() as f:
+            _dat = f.read()
+        return _dat

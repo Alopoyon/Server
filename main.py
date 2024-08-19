@@ -23,9 +23,23 @@ app.add_middleware(
 async def root():
     return {"message": "Hello World!"}
 
-@app.get("/api/projects/")
+@app.get("/api/projects")
 async def projects():
-    project = ProjectManagement(PROJECT_DIRECTORY)
-    contents = project.directory_contents()
-    # print(f"{contents=}")
-    return contents
+    _project = ProjectManagement(PROJECT_DIRECTORY)
+    _contents = _project.directory_contents()
+    # print(f"N{contents=}")
+    return _contents
+
+@app.get("/api/projects/d_{project_name_dir}")
+async def project_contents(project_name_dir):
+    _project = ProjectManagement(PROJECT_DIRECTORY.joinpath(project_name_dir))
+    _contents = _project.directory_contents()
+    # print(f"N{contents=}")
+    return _contents
+
+@app.get("/api/projects/f_{project_name_file}")
+async def project_contents(project_name_file):
+    _project = ProjectManagement(PROJECT_DIRECTORY.joinpath(project_name_file))
+    _contents = _project.read_file_contents()
+    # print(f"N{contents=}")
+    return _contents
