@@ -38,7 +38,7 @@ class ProjectManagement:
     
     def read_file_contents(self):
         _extension = self._directory_contents.suffix
-        print("EXT: ",_extension)
+        # print("EXT: ",_extension)
         _dat = ""
         if _extension == ".pdf":
             with pdf.open(self._directory_contents) as pdf_file:
@@ -47,7 +47,7 @@ class ProjectManagement:
         if _extension == ".txt":
             with open(self._directory_contents,'rb') as f:
                 _dat = f.read()
-        print("DAT: ",_dat)
+        # print("DAT: ",_dat)
         return _dat
         
     def __str__(self):
