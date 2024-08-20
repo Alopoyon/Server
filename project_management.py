@@ -1,5 +1,6 @@
 import pathlib
 from pathlib import Path
+import pdfplumber as pdf
 
 class ProjectManagement:
     def __init__(self,directory: pathlib.WindowsPath):
@@ -24,6 +25,11 @@ class ProjectManagement:
         return __project_files
 
     def directory_contents(self):
+        if self._directory_contents.is_file():
+            print("File check passed")
+            _dat = self.read_file_contents()
+            return _dat
+
         _directory_contents = {
             "directories": self._return_directory_names(),
             "files": self._return_file_names()
@@ -31,8 +37,17 @@ class ProjectManagement:
         return _directory_contents
     
     def read_file_contents(self):
-        with self._directory_contents.open() as f:
-            _dat = f.read()
+        _extension = self._directory_contents.suffix
+        print("EXT: ",_extension)
+        _dat = ""
+        if _extension == ".pdf":
+            with pdf.open(self._directory_contents) as pdf_file:
+                for page in pdf_file.pages:
+                    _dat += page.extract_text()
+        if _extension == ".txt":
+            with open(self._directory_contents,'rb') as f:
+                _dat = f.read()
+        print("DAT: ",_dat)
         return _dat
         
     def __str__(self):

@@ -41,27 +41,14 @@ async def projects():
 async def project_contents(project_name: str = ""):
     if project_name == "":
         return JSONResponse(status_code=404, content={"message":"Invalid path!"})
-    print(f"{project_name=}")
+    # print(f"{project_name=}")
 
     try:
         _project = ProjectManagement(PROJECT_DIRECTORY.joinpath(project_name))
         print("Current path: ",_project)
         _contents = _project.directory_contents()
-        print(f"{_contents=}")
+        # print(f"{_contents=}")
         return _contents
     except:
         return JSONResponse(status_code=404, content={"message":"Item does not exist"})
  
-
-@app.get("/api/projects/{path_name}/f_{file_name}")
-async def project_contents(path_name:str,file_name:str ):
-    if path_name == "":
-        _project = ProjectManagement(PROJECT_DIRECTORY.joinpath(file_name))
-        _contents = _project.read_file_contents()
-        # print(f"N{contents=}")
-        return _contents
-    print(f"{path_name=}, {file_name=}")
-    _project = ProjectManagement(PurePath(PROJECT_DIRECTORY,path_name,file_name))
-    _contents = _project.read_file_contents()
-    # print(f"N{contents=}")
-    return _contents
