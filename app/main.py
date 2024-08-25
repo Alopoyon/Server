@@ -4,15 +4,19 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 
-# CUSTOM PACKAGES/SCRIPTS
-from .utils.projectManagement import ProjectManagement
-
 # UTILITY
 from pathlib import Path, PurePath
 import os
+import sys
 
+# ENVIRONMENT SETUP
 from dotenv import load_dotenv
 load_dotenv()
+sys.path.insert(0, os.environ['SERVER_PATH']) 
+
+
+# CUSTOM PACKAGES/SCRIPTS
+from app.utils.projectManagement import ProjectManagement
 
 # DECALRE PATHS 
 PROJECT_DIRECTORY = Path(os.environ['PROJECT_PATH'])
