@@ -1,18 +1,38 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, Field, validator
+from typing import Optional
+from datetime import datetime
 
-class UserIn(BaseModel):
-    username: str
-    passowrd: str
+class BaseUser(BaseModel):
+    username: Optional[str]
     email: EmailStr
     full_name: str | None = None
+
+class Password(BaseModel):
+    PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
+    password: str = Field(min_length=8, max_length=128, regex=PASSWORD_REGEX)
+
+    @validator("password", always=False)
+    def validate_password(cls, value, values):
+        if values.get("is_new_user"):
+            # - Check for common weak passwords
+            # - Ensure password is not part of a leaked database
+            ...
+        return value
+class UserIn(BaseModel):
+    user: BaseUser
+    password: Password
+    signin_ts: datetime | None
 
 class UserOut(BaseModel):
-    username: str
-    email: EmailStr
-    full_name: str | None = None
-
+    user: BaseUser
+    signout_ts: datetime | None
+class Address(BaseModel):
+    street: str
+    city: str
+    state: str
 class UserInDB(BaseModel):
-    username: str
-    passowrd: str
-    email: EmailStr
-    full_name: str | None = None
+    user: BaseUser
+    passowrd: Password
+    address: Optional[Address] | None = None
+    signin_count: int
+
