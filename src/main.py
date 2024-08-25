@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 
 # CUSTOM PACKAGES/SCRIPTS
-from project_management import ProjectManagement
+from projectManagement import ProjectManagement
 
 # UTILITY
 from pathlib import Path, PurePath
