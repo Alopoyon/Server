@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Integer, String, Float, Text
 from sqlalchemy.orm import relationship
 
-from app.database.database import Base
+from app.db.init_db import Base
 
 class Item(Base):
     __tablename__ = "items"
