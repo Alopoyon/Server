@@ -6,9 +6,15 @@ class Product(BaseModel):
     price: float
     description: Optional[str] = None
 
+    class Config:
+        orm_mode=True
+
 class Category(BaseModel):
     id: int
     name: str
+
+    class Config:
+        orm_mode=True
 
 class ProductCategory(BaseModel):
     product_id: int

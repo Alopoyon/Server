@@ -23,9 +23,15 @@ class UserIn(BaseModel):
     password: Password
     signin_ts: datetime | None
 
+    class Config:
+        orm_mode=True
+
 class UserOut(BaseModel):
     user: BaseUser
     signout_ts: datetime | None
+    
+    class Config:
+        orm_mode=True
 class Address(BaseModel):
     street: str
     city: str
@@ -35,4 +41,7 @@ class UserInDB(BaseModel):
     passowrd: Password
     address: Optional[Address] | None = None
     signin_count: int
+
+    class Config:
+        orm_mode=True
 
