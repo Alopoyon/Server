@@ -15,7 +15,7 @@ load_dotenv()
 sys.path.insert(0, os.environ['SERVER_PATH']) 
 
 # DATABASE SETUP
-
+from app.db.init_db import init_db
 
 # CUSTOM PACKAGES/SCRIPTS
 from app.utils.projectManagement import ProjectManagement
@@ -23,8 +23,6 @@ from app.utils.projectManagement import ProjectManagement
 # DECALRE PATHS 
 PROJECT_DIRECTORY = Path(os.environ['PROJECT_PATH'])
 favicon_path = './favicon.ico' 
-
-
 
 
 app = FastAPI()
@@ -35,6 +33,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
 @app.get("/")
 async def root():
@@ -63,7 +65,7 @@ async def project_contents(project_name: str = ""):
     # print(f"{project_name=}")
     try:
         _project = ProjectManagement(PROJECT_DIRECTORY.joinpath(project_name))
-        print("Current path: ",_project)
+        # print("Current path: ",_project)
         _contents = _project.directory_contents()
         # print(f"{_contents=}")
         return _contents
