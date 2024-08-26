@@ -5,10 +5,11 @@ from datetime import datetime
 class BaseUser(BaseModel):
     username: Optional[str]
     email: EmailStr
-    full_name: str | None = None
+    full_name: Optional[str] | None = None
 
 class Password(BaseModel):
     PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
+
     password: str = Field(min_length=8, max_length=128, regex=PASSWORD_REGEX)
 
     @validator("password", always=False)
@@ -18,27 +19,26 @@ class Password(BaseModel):
             # - Ensure password is not part of a leaked database
             ...
         return value
-class UserIn(BaseModel):
-    user: BaseUser
+
+class UserIn(BaseUser):
     password: Password
     signin_ts: datetime | None
 
     class Config:
         orm_mode=True
 
-class UserOut(BaseModel):
-    user: BaseUser
+class UserOut(BaseUser):
     signout_ts: datetime | None
     
     class Config:
         orm_mode=True
+
 class Address(BaseModel):
     street: str
     city: str
     state: str
-class UserInDB(BaseModel):
-    user: BaseUser
-    passowrd: Password
+
+class UserCreate(BaseUser,Password):
     address: Optional[Address] | None = None
     signin_count: int
 
