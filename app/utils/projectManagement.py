@@ -49,6 +49,13 @@ class ProjectManagement:
                 _dat = f.read()
         # print("DAT: ",_dat)
         return _dat
+
+    def read_pdf(self, file):
+        _dat = ""
+        with pdf.open(self._directory_contents) as pdf_file:
+            for page in pdf_file.pages:
+                _dat += page.extract_text()
+        return _dat
         
     def __str__(self):
         if self._directory_contents.exists():
