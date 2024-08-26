@@ -25,7 +25,9 @@ PROJECT_DIRECTORY = Path(os.environ['PROJECT_PATH'])
 favicon_path = './favicon.ico' 
 
 
-app = FastAPI()
+app = FastAPI(
+    title= "Server"
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # here
@@ -44,7 +46,7 @@ async def root():
 
 @app.get('/favicon.ico', include_in_schema=False)
 async def favicon():
-    print(os.getcwd())
+    # print(os.getcwd())
     return FileResponse(favicon_path)
 
 @app.get("/api/projects")
