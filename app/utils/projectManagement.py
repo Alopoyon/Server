@@ -41,16 +41,38 @@ class ProjectManagement:
         # print("EXT: ",_extension)
         _dat = ""
         if _extension == ".pdf":
-            with pdf.open(self._directory_contents) as pdf_file:
-                for page in pdf_file.pages:
-                    _dat += page.extract_text()
-        if _extension == ".txt":
-            with open(self._directory_contents,'rb') as f:
-                _dat = f.read()
-        # print("DAT: ",_dat)
+            _dat = self.read_pdf()
+
+        elif _extension == ".txt":
+            _dat = self.read_txt()
+
+        elif _extension == ".html":
+            _dat = self.read_txt()
+
+        elif _extension == ".md":
+            _dat = self.read_txt()
+
+        elif _extension == ".rtf":
+            _dat = self.read_txt()
+
+        elif _extension == ".doc":
+            _dat = self.read_txt()
+
+        elif _extension == ".docx":
+            _dat = self.read_txt()
+        
+        else:
+            _dat = "File type not supported"
+
         return _dat
 
-    def read_pdf(self, file):
+    def read_txt(self):
+        _dat = ""
+        with open(self._directory_contents,'rb') as text_file:
+            _dat = text_file.read()
+        return _dat
+
+    def read_pdf(self):
         _dat = ""
         with pdf.open(self._directory_contents) as pdf_file:
             for page in pdf_file.pages:
