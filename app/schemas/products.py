@@ -1,7 +1,14 @@
 from pydantic import BaseModel
 from typing import Optional
 
-class Product(BaseModel):
+class Category(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode=True
+
+class BaseProduct(BaseModel):
     id: int
     name: str
     price: float
@@ -10,13 +17,6 @@ class Product(BaseModel):
     class Config:
         orm_mode=True
 
-class Category(BaseModel):
-    id: int
-    name: str
 
-    class Config:
-        orm_mode=True
-
-class ProductCategory(BaseModel):
-    product_id: int
-    category_id: int
+class Product(BaseProduct,Category):
+    ...

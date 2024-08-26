@@ -14,6 +14,8 @@ from dotenv import load_dotenv
 load_dotenv()
 sys.path.insert(0, os.environ['SERVER_PATH']) 
 
+# DATABASE SETUP
+
 
 # CUSTOM PACKAGES/SCRIPTS
 from app.utils.projectManagement import ProjectManagement
@@ -21,6 +23,8 @@ from app.utils.projectManagement import ProjectManagement
 # DECALRE PATHS 
 PROJECT_DIRECTORY = Path(os.environ['PROJECT_PATH'])
 favicon_path = './favicon.ico' 
+
+
 
 
 app = FastAPI()
