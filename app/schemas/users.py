@@ -25,13 +25,13 @@ class UserIn(BaseUser):
     signin_ts: datetime | None
 
     class Config:
-        orm_mode=True
+        from_attributes=True
 
 class UserOut(BaseUser):
     signout_ts: datetime | None
     
     class Config:
-        orm_mode=True
+        from_attributes=True
 
 class Address(BaseModel):
     street: str
@@ -43,5 +43,5 @@ class UserCreate(BaseUser,Password):
     signin_count: int
 
     class Config:
-        orm_mode=True
+        from_attributes=True
 

@@ -13,7 +13,7 @@ class Product(Base):
     quantity = Column(Integer, default=0)
     category = Column(String, nullable=True)
     # image = Column(String, default="No Image") # URL to aome other database or something, look into it later
-    metadata = Column(Text, nullable=True) # TBD an array/comma separated strings that help match the product
+    # metadata = Column(Text, nullable=True) # TBD an array/comma separated strings that help match the product
     published = Column(Boolean, default=False)
     
 

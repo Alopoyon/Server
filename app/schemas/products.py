@@ -6,7 +6,7 @@ class Category(BaseModel):
     name: str
 
     class Config:
-        orm_mode=True
+        from_attributes=True
 
 class BaseProduct(BaseModel):
     id: int
@@ -16,7 +16,7 @@ class BaseProduct(BaseModel):
     description: Optional[str] = None
 
     class Config:
-        orm_mode=True
+        from_attributes=True
 
 
 class Product(BaseProduct):
