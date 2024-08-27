@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, EmailStr
 from typing import Optional
 from datetime import datetime
 
@@ -8,9 +8,9 @@ class BaseUser(BaseModel):
     full_name: Optional[str] | None = None
 
 class Password(BaseModel):
-    PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
+    # PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
 
-    password: str = Field(min_length=8, max_length=128, regex=PASSWORD_REGEX)
+    password: str = Field(min_length=8, max_length=128)
 
     @validator("password", always=False)
     def validate_password(cls, value, values):
