@@ -16,7 +16,7 @@ load_dotenv()
 sys.path.insert(0, os.environ['SERVER_PATH']) 
 
 # DATABASE SETUP
-from app.db.init_db import init_db
+from app.db.session import get_db
 
 # ROUTES
 from app.router.main import api_router
@@ -31,6 +31,7 @@ from app.router.main import api_router
 app = FastAPI(
     title= "Server"
 )
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # here
@@ -39,12 +40,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-def on_startup():
-    init_db()
-
 app.include_router(api_router)
 
+@app.on_event("startup")
+def on_startup():
+    get_db()
 
  
 if __name__ == "__main__":
