@@ -43,6 +43,7 @@ class Address(BaseModel):
 class UserCreate(Password, BaseUser):
     address: Optional[Address] | None = None
     signin_count: int
+    is_active: bool = False
 
     class Config:
         from_attributes=True
