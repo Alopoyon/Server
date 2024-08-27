@@ -22,15 +22,14 @@ async def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
     #     raise HTTPException(status_code=400, detail="Email already registered!")
     return userCRUD.create_user(db= db, user= user)
 
-# {
 #   "username": "jhon",
 #   "email": "jhon@domain.com",
 #   "full_name": "Jhon Doe",
 #   "password": "P@ssword",
 #   "address": {
 #     "street": "12 Kennedy St",
-#     "city": "Ougadougau",
-#     "state": "AL"
+#      "city": "Ougadougau",
+#      "state": "AL"
 #   },
-#   "signin_count": 0
-# }
+#   "signin_count": 0,
+#   "is_active": false
