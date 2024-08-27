@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, validator, EmailStr
+from pydantic import BaseModel, validator, EmailStr, SecretStr
 from typing import Optional
 from datetime import datetime
 
@@ -10,15 +10,15 @@ class BaseUser(BaseModel):
 class Password(BaseModel):
     # PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
 
-    password: str = Field(min_length=8, max_length=128)
+    password: SecretStr
 
-    @validator("password", always=False)
-    def validate_password(cls, value, values):
-        if values.get("is_new_user"):
-            # - Check for common weak passwords
-            # - Ensure password is not part of a leaked database
-            ...
-        return value
+    # @validator("password", always=False)
+    # def validate_password(cls, value, values):
+    #     if values.get("is_new_user"):
+    #         # - Check for common weak passwords
+    #         # - Ensure password is not part of a leaked database
+    #         ...
+    #     return value
 
 class UserIn(BaseUser):
     password: Password
@@ -38,7 +38,7 @@ class Address(BaseModel):
     city: str
     state: str
 
-class UserCreate(BaseUser,Password):
+class UserCreate(Password, BaseUser):
     address: Optional[Address] | None = None
     signin_count: int
 
