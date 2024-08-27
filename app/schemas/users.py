@@ -10,7 +10,7 @@ class BaseUser(BaseModel):
 class Password(BaseModel):
     # PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
 
-    password: SecretStr
+    password: str
 
     # @validator("password", always=False)
     # def validate_password(cls, value, values):
