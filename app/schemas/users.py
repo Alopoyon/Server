@@ -1,8 +1,10 @@
 from pydantic import BaseModel, validator, EmailStr, SecretStr
 from typing import Optional
 from datetime import datetime
+import uuid
 
 class BaseUser(BaseModel):
+    uid: str = str(uuid.uuid4())
     username: Optional[str]
     email: EmailStr
     full_name: Optional[str] | None = None

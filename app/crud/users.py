@@ -14,7 +14,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user(db: Session, user: UserCreate):
     fake_hashed_password = user.password + "notreallyhashed"
-    db_user = User(email=user.email, password=fake_hashed_password)
+    db_user = User(uid= user.uid, email=user.email, password=fake_hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

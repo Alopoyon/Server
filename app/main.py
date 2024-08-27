@@ -16,7 +16,7 @@ load_dotenv()
 sys.path.insert(0, os.environ['SERVER_PATH']) 
 
 # DATABASE SETUP
-from app.db.session import get_db
+from app.db.session import get_db, Base, engine
 
 # ROUTES
 from app.router.main import api_router
@@ -26,6 +26,9 @@ from app.router.main import api_router
 
 # DECALRE PATHS 
 
+
+
+Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
