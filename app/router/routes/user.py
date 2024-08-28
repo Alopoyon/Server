@@ -5,7 +5,7 @@ from fastapi.exceptions import HTTPException
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.schemas.users import UserCreate
+from app.schemas.users import UserCreate, BaseUser
 from app.crud import users as userCRUD
 
 router = APIRouter()
@@ -13,6 +13,10 @@ router = APIRouter()
 @router.get("/")#, include_in_schema=False)
 async def read_prducts():
     return [{"users": "none"}]
+
+@router.get("/get_user", response_model= BaseUser)
+async def get_user(user: BaseUser, db: Session = Depends(get_db)):
+    return userCRUD.get_user_by_email(db=db, email=user.email)
 
 @router.post("/create_new_user/", response_model=UserCreate)
 async def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
