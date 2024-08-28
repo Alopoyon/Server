@@ -14,9 +14,12 @@ router = APIRouter()
 async def read_prducts():
     return [{"users": "none"}]
 
-@router.get("/get_user", response_model= BaseUser)
+@router.post("/get_user/", response_model= BaseUser)
 async def get_user(user: BaseUser, db: Session = Depends(get_db)):
+    # _r =  userCRUD.get_user_by_email(db=db, email=user.email)
+    # print("get User by email: ",_r)
     return userCRUD.get_user_by_email(db=db, email=user.email)
+
 
 @router.post("/create_new_user/", response_model=UserCreate)
 async def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
