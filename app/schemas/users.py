@@ -48,3 +48,9 @@ class UserCreate(Password, BaseUser):
     class Config:
         from_attributes=True
 
+class UserEmail(BaseModel):
+    email: EmailStr
+
+    class Config:
+        from_attributes=True
+
