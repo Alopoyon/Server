@@ -22,12 +22,6 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
         .offset(skip)
     )
     _res  = convert_retrived_user_data_to_json(_res)
-    # _resp = []
-    # for user in _res:
-    #     _user_dict = user.__dict__
-    #     del _user_dict['_sa_instance_state']
-    #     _resp.append(_user_dict)
-    # print(f"{_resp=}")
     return _res
 
 
