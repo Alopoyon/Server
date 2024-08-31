@@ -1,5 +1,5 @@
 from pydantic import BaseModel, validator, EmailStr, SecretStr
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 
@@ -8,6 +8,8 @@ class BaseUser(BaseModel):
     username: Optional[str]
     email: EmailStr
     full_name: Optional[str] | None = None
+    signin_count: int
+    is_active: bool = False
 
 class Password(BaseModel):
     # PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
@@ -42,8 +44,6 @@ class Address(BaseModel):
 
 class UserCreate(Password, BaseUser):
     address: Optional[Address] | None = None
-    signin_count: int
-    is_active: bool = False
 
     class Config:
         from_attributes=True
@@ -54,3 +54,6 @@ class UserEmail(BaseModel):
     class Config:
         from_attributes=True
 
+
+class UserList(BaseModel):
+    users: List[BaseUser]
