@@ -24,7 +24,7 @@ async def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
             detail="Failed to retrieve users",
             headers={"X-Error": "There goes my error"}
         )
-    return userCRUD.get_users(db=db, skip=0, limit=100)
+    return _userList
 
 
 @router.post("/get_user_by_email/", response_model= BaseUser)

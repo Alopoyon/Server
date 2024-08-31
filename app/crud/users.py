@@ -43,7 +43,7 @@ def create_user(db: Session, user: UserCreate):
     return db_user
 
 def convert_retrived_user_data_to_json(userList: list):
-    _new_resp = []
+    _new_resp = {'users':[]}
     for user in userList:
         _tempUser = {}
         _tempUser['uid']=user[0]
@@ -51,5 +51,5 @@ def convert_retrived_user_data_to_json(userList: list):
         _tempUser['username']=user[2]
         _tempUser['is_active']=user[3]
         _tempUser['signin_count']=user[4]
-        _new_resp.append(_tempUser)
+        _new_resp['users'].append(_tempUser)
     return _new_resp
