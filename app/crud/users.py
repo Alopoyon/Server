@@ -18,9 +18,9 @@ def get_user_by_email(db: Session, email: UserEmail):
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     _res = db.execute(
         select(User.uid, User.email, User.username, User.is_active, User.signin_count)
-        .offset(skip)
         .limit(limit)
-    ).all()
+        .offset(skip)
+    )
     _res  = convert_retrived_user_data_to_json(_res)
     # _resp = []
     # for user in _res:

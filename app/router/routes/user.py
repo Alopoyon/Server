@@ -15,9 +15,9 @@ async def read_prducts():
     return [{"users": "none"}]
 
 @router.get("/get_users/", response_model= UserList)
-async def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+async def get_users(skip: int , limit: int, db: Session = Depends(get_db)):
     try:
-        _userList = userCRUD.get_users(db=db, skip=0, limit=100)
+        _userList = userCRUD.get_users(db=db, skip=skip, limit=limit)
     except:
         raise HTTPException(
             status_code=404,
