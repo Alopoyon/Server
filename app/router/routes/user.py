@@ -15,7 +15,7 @@ async def read_prducts():
     return [{"users": "none"}]
 
 @router.get("/get_users/", response_model= UserList)
-async def get_users(skip: int , limit: int, db: Session = Depends(get_db)):
+async def get_users(skip: int =0, limit: int =10, db: Session = Depends(get_db)):
     try:
         _userList = userCRUD.get_users(db=db, skip=skip, limit=limit)
     except:
@@ -29,12 +29,20 @@ async def get_users(skip: int , limit: int, db: Session = Depends(get_db)):
 
 @router.post("/get_user_by_email/", response_model= BaseUser)
 async def get_user_by_email(user_email: UserEmail, db: Session = Depends(get_db)):
-    _user = userCRUD.get_user_by_email(db=db, email=user_email)
-    if user_email not in _user:
-        raise HTTPException(            
+    try:
+        _user = userCRUD.get_user_by_email(db=db, email=user_email)
+        if user_email not in _user.values():
+            raise HTTPException(            
+                status_code=404,
+                detail="User not found",
+                headers={"X-Error": "User not in database"})
+    except:
+        raise HTTPException(
             status_code=404,
-            detail="Item not found",
-            headers={"X-Error": "There goes my error"})
+            detail="Failed to retrieve user",
+            headers={"X-Error": "There goes my error"}
+        )
+
     return _user
 
 
