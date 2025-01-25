@@ -10,7 +10,7 @@ from app.crud import users as userCRUD
 
 router = APIRouter()
 
-@router.get("/")#, include_in_schema=False)
+@router.get("/", include_in_schema=False)
 async def read_prducts():
     return [{"users": "none"}]
 

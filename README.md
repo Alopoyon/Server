@@ -1,4 +1,6 @@
 # FastAPI Server
 
-> A server with for the [OneStop](https://github.com/Alopoyon/OneStop) project backend, hopefully easily configurable
+> A server for the [OneStop](https://github.com/Alopoyon/OneStop) project, hopefully easily configurable.
 
+
+From the Top level directory and run uvicorn app.main:app (Ensure that your virtual environment is running).
